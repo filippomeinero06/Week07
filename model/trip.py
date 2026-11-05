@@ -11,5 +11,14 @@ class Trip:
     duration_seconds : int
     user_type : str
 
+    #start_station : None # Station
+    #end_station : None # Station
+
     def __str__(self):
         return f"Trip {self.trip_id}"
+
+    def __eq__(self, other):
+        return self.trip_id == other.trip_id
+
+    def __hash__(self):
+        return hash(self.trip_id)

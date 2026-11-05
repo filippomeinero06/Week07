@@ -1,4 +1,5 @@
 from database.db_connect import DB_Connect
+from model.station import Station
 from model.trip import Trip
 
 
@@ -48,6 +49,28 @@ class Dao:
             for row in cursor:
                 trip = Trip(*row)
                 result.append(trip)
+
+            cursor.close()
+            cnx.close()
+            return result
+
+            # Funzione incaricata di leggere le trip dal database con SQL
+    def read_stations_from_db(self):
+        db = DB_Connect()
+        cnx = db.get_connection()
+        if cnx is not None:
+            print("Connection established")
+
+            # query ="SELECT * FROM trip"
+            query = "SELECT station_id, name, latitude, longitude FROM station"
+            cursor = cnx.cursor()
+            cursor.execute(query)
+            # Leggo tutto dal cursore in una variabile results
+            # result = cursor.fetchall()
+            result = []
+            for row in cursor:
+                station = Station(*row)
+                result.append(station)
 
             cursor.close()
             cnx.close()
