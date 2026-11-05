@@ -9,6 +9,7 @@ class Controller():
     def handler_btn(self, e):
         print("Button clicked")
         result = self._model.get_trips()
+
         # Prende quanto letto tramite il Model/Dao
         # e lo mostra nella UI, all'interno della listview
         self._view._list_view.controls.clear()

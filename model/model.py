@@ -1,6 +1,4 @@
 from database.dao import Dao
-from model import station
-
 
 class Model:
     def __init__(self):
@@ -17,6 +15,9 @@ class Model:
         self._dict_trips = {}
         self._dict_stations = {}
 
+        # Potrei scandire tutte le mie trip, e al posto di lasciare solo gli id delle station, potrei
+        # memorizzare in esse anche il riferimento all'oggetto station corrispondente
+
         # Inizializzo i dizionari prendendo i dati dalle liste
         for station in self._list_stations:
             self._dict_stations[station.station_id] = station
@@ -25,13 +26,12 @@ class Model:
         # inserire direttamente i riferimenti agli oggetti corrispondenti
         for trip in self._list_trips:
             self._dict_trips[trip.trip_id] = trip
-            trip.station_id = self._dict_stations[trip.trip_id]  # TODO
+            trip.start_station = self._dict_stations[trip.start_station_id]
+            trip.end_station = self._dict_stations[trip.end_station_id]
 
         print(f"#Trips: {len(self._list_trips)}")
         print(f"#Stations: {len(self._list_stations)}")
 
-        # Potrei scandire tutte le mie trip, e al posto di lasciare solo gli id delle station, potrei
-        # memorizzare in esse anche il riferimento all'oggetto station corrispondente
 
     # Funzione che è incaricata di fornire le trip
     def get_trips(self):
@@ -59,6 +59,9 @@ class Model:
                     result.append(station)
         """
 
+        # In alternativa, se ho usato il pattern ORM e, nella trip, ho non l'id della station
+        # ma la station vera e propria (ovvero un riferimento all'oggetto che la rappresenta),
+        # posso accedere direttamente all'oggetto e, da quello, prendere direttamente .name
         for trip in self._list_trips:
             if trip.start_station.name.startswith(letter):
                 result.append(trip)

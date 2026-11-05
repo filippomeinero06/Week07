@@ -19,7 +19,7 @@ class Dao:
             query ="SELECT trip_id, bike_id, start_station_id, end_station_id, start_time, end_time, duration_seconds, user_type FROM trip"
             cursor = cnx.cursor()
             cursor.execute(query)
-            # Leggo tutto dal cursore in una variabile results
+            # Leggo tutto dal cursore in una variabile result
             # result = cursor.fetchall()
             result = []
             for row in cursor:
@@ -41,10 +41,10 @@ class Dao:
             query = f"""SELECT t.*
                        FROM trip t, station s
                        WHERE t.start_station_id = s.station_id 
-                       AND s.name LIKE '{letter}%'
+                       AND s.name LIKE s%
                     """
             cursor = cnx.cursor()
-            cursor.execute(query)
+            cursor.execute(query, (letter,))
             result = []
             for row in cursor:
                 trip = Trip(*row)
@@ -54,7 +54,7 @@ class Dao:
             cnx.close()
             return result
 
-            # Funzione incaricata di leggere le trip dal database con SQL
+    # Funzione incaricata di leggere le trip dal database con SQL
     def read_stations_from_db(self):
         db = DB_Connect()
         cnx = db.get_connection()
@@ -65,7 +65,7 @@ class Dao:
             query = "SELECT station_id, name, latitude, longitude FROM station"
             cursor = cnx.cursor()
             cursor.execute(query)
-            # Leggo tutto dal cursore in una variabile results
+            # Leggo tutto dal cursore in una variabile result
             # result = cursor.fetchall()
             result = []
             for row in cursor:

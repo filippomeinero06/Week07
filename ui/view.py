@@ -25,7 +25,8 @@ class View:
                         on_click = self._controller.handler_btn)
 
         self._dd = ft.Dropdown(label="Letter",
-                               on_select=self._controller.handler_btn_sel)
+                               #on_select=self._controller.handler_btn_sel
+                               )
         self._dd.options.append(ft.DropdownOption(key="A", text="A"))
         self._dd.options.append(ft.DropdownOption(key="B", text="B"))
         self._dd.options.append(ft.DropdownOption(key="C", text="C"))
